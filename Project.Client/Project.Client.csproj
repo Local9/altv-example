@@ -10,7 +10,7 @@
   <Import Project="..\Project.Shared\Project.Shared.projitems" Label="Shared" />
 
   <ItemGroup>
-    <PackageReference Include="AltV.Net.Client" Version="16.0.16" />
+    <PackageReference Include="AltV.Net.Client.Async" Version="16.0.16" />
   </ItemGroup>
 
 </Project>
