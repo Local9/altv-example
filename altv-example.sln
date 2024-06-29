@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project.Client", "Project.Client\Project.Client.csproj", "{1BCBB5FA-9BBA-4340-B3BC-9FE233DC3261}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project.Client", "Project.Client\Project.Client.csproj", "{1BCBB5FA-9BBA-4340-B3BC-9FE233DC3261}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project.Server", "Project.Server\Project.Server.csproj", "{A7C68EC2-0AC5-4FA7-8C1B-23AD81FCADF0}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Project.Shared", "Project.Shared\Project.Shared.shproj", "{A0CCF1C6-4E7E-47DC-BD1B-1EA5D484DAA8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,11 +19,20 @@ Global
 		{1BCBB5FA-9BBA-4340-B3BC-9FE233DC3261}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BCBB5FA-9BBA-4340-B3BC-9FE233DC3261}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1BCBB5FA-9BBA-4340-B3BC-9FE233DC3261}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7C68EC2-0AC5-4FA7-8C1B-23AD81FCADF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7C68EC2-0AC5-4FA7-8C1B-23AD81FCADF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7C68EC2-0AC5-4FA7-8C1B-23AD81FCADF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7C68EC2-0AC5-4FA7-8C1B-23AD81FCADF0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {06825E66-0C07-4F37-BE3D-3613F2AAC684}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Project.Shared\Project.Shared.projitems*{1bcbb5fa-9bba-4340-b3bc-9fe233dc3261}*SharedItemsImports = 5
+		Project.Shared\Project.Shared.projitems*{a0ccf1c6-4e7e-47dc-bd1b-1ea5d484daa8}*SharedItemsImports = 13
+		Project.Shared\Project.Shared.projitems*{a7c68ec2-0ac5-4fa7-8c1b-23ad81fcadf0}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

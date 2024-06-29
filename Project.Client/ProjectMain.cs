@@ -1,6 +1,6 @@
 ﻿namespace Project.Client
 {
-    public class Class1
+    public class ProjectMain
     {
 
     }
