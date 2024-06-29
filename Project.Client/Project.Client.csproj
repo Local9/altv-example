@@ -5,6 +5,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <Configurations>CLIENT</Configurations>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <BaseOutputPath></BaseOutputPath>
+    <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>False</AppendRuntimeIdentifierToOutputPath>
   </PropertyGroup>
 
   <Import Project="..\Project.Shared\Project.Shared.projitems" Label="Shared" />
@@ -12,5 +16,10 @@
   <ItemGroup>
     <PackageReference Include="AltV.Net.Client.Async" Version="16.0.16" />
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy /f /r /y /i bin\Debug ..\resource-output\client" Condition="'$(Configuration)' == 'Debug'"/>
+    <Exec Command="xcopy /f /r /y /i bin\Release ..\resource-output\client" Condition="'$(Configuration)' == 'Release'"/>
+  </Target>
 
 </Project>
