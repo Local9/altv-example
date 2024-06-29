@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <Configurations>SERVER</Configurations>
@@ -15,11 +15,12 @@
 
   <ItemGroup>
     <PackageReference Include="AltV.Net.Async" Version="16.0.16" />
+    <PackageReference Include="System.Runtime" Version="4.3.1" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /f /r /y /i bin\Debug ..\resource-output\server" Condition="'$(Configuration)' == 'Debug'"/>
-    <Exec Command="xcopy /f /r /y /i bin\Release ..\resource-output\server" Condition="'$(Configuration)' == 'Release'"/>
+    <Exec Command="xcopy /f /r /y /i bin\Debug ..\resource-output\server" Condition="'$(Configuration)' == 'Debug'" />
+    <Exec Command="xcopy /f /r /y /i bin\Release ..\resource-output\server" Condition="'$(Configuration)' == 'Release'" />
   </Target>
 
 </Project>

@@ -21,8 +21,9 @@ bld/
 [Bb]in/
 [Oo]bj/
 [Ll]og/
-resource-output/client/
-resource-output/server/
+
+/resource-output/client/*
+/resource-output/server/*
 
 # Visual Studio 2015 cache/options directory
 .vs/

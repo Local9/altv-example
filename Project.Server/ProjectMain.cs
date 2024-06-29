@@ -1,8 +1,8 @@
-﻿using AltV.Net;
+﻿using AltV.Net.Async;
 
 namespace Project.Server
 {
-    internal class ProjectMain : Resource
+    internal class ProjectMain : AsyncResource
     {
         public override void OnStart()
         {
