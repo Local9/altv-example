@@ -1,0 +1,7 @@
+# Client
+client-type = "csharp"
+client-main = "client/Project.Client.dll"
+client-files = ["client/*"]
+# Server
+type = "csharp"
+main = "server/Project.Server.dll"
