@@ -4,6 +4,11 @@ namespace Project.Client.Events
 {
     internal class PlayerEvents : IScript
     {
+        public PlayerEvents()
+        {
+            Alt.OnServer<string>("myEvent", MyEvent);
+        }
+
         [ServerEvent("myEvent")]
         public void MyEvent(string message)
         {

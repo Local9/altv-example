@@ -1,4 +1,5 @@
 ﻿using AltV.Net;
+using AltV.Net.Async;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Enums;
@@ -8,7 +9,7 @@ namespace Project.Server.Events
 {
     internal class PlayerEvents : IScript
     {
-        [ScriptEvent(ScriptEventType.PlayerConnect)]
+        [AsyncScriptEvent(ScriptEventType.PlayerConnect)]
         public async void PlayerConnectAsync(IAltPlayer player, string reason)
         {
             Position rndSpawnPoint = Misc.SpawnPositions.ElementAt(Misc.RandomInt(0, Misc.SpawnPositions.Length));
@@ -30,7 +31,7 @@ namespace Project.Server.Events
             }
         }
 
-        [ScriptEvent(ScriptEventType.PlayerDead)]
+        [AsyncScriptEvent(ScriptEventType.PlayerDead)]
         public async void PlayerDead(IAltPlayer player, IEntity killer, uint weapon)
         {
             if (killer is IVehicle)
