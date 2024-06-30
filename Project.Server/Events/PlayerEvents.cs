@@ -2,12 +2,11 @@
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Enums;
-using AltV.Net.Resources.Chat.Api;
 using Project.Server.Factories;
 
 namespace Project.Server.Events
 {
-    internal class PlayerConnection : IScript
+    internal class PlayerEvents : IScript
     {
         [ScriptEvent(ScriptEventType.PlayerConnect)]
         public async void PlayerConnectAsync(IAltPlayer player, string reason)
@@ -34,25 +33,28 @@ namespace Project.Server.Events
         [ScriptEvent(ScriptEventType.PlayerDead)]
         public async void PlayerDead(IAltPlayer player, IEntity killer, uint weapon)
         {
-            if (killer is IAltPlayer)
+            if (killer is IVehicle)
+            {
+                Misc.SendChatMessageToAll($"{player.Name}({player.Id}) was killed by a vehicle...");
+            }
+            else if (killer is IAltPlayer)
             {
                 IAltPlayer killerPlayer = (IAltPlayer)killer;
 
-                foreach (IPlayer? p in Alt.GetAllPlayers())
-                {
-                    p.SendChatMessage($"{("{FFFFFF}")} <b>{killerPlayer.Name}({killerPlayer.Id})</b> killed <b>{player.Name}({player.Id})</b>");
-                }
+                Misc.SendChatMessageToAll($"{player.Name}({player.Id}) was killed by {killerPlayer.Name}({killerPlayer.Id})");
 
                 await Task.Delay(5000);
 
                 player.Spawn(player.Position + new Position(Misc.RandomInt(10, 30), Misc.RandomInt(10, 30), 0));
-
-                return;
             }
+            else
+            {
+                Misc.SendChatMessageToAll($"{player.Name}({player.Id}) died...");
 
-            Position[] spawnPoints = Misc.SpawnPositions;
-            Position rndSpawnPoint = spawnPoints.ElementAt(Misc.RandomInt(0, spawnPoints.Length));
-            player.Spawn(rndSpawnPoint + new Position(Misc.RandomInt(0, 10), Misc.RandomInt(0, 10), 0));
+                Position[] spawnPoints = Misc.SpawnPositions;
+                Position rndSpawnPoint = spawnPoints.ElementAt(Misc.RandomInt(0, spawnPoints.Length));
+                player.Spawn(rndSpawnPoint + new Position(Misc.RandomInt(0, 10), Misc.RandomInt(0, 10), 0));
+            }
         }
     }
 }

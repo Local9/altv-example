@@ -1,5 +1,7 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
+using AltV.Net.Elements.Entities;
+using AltV.Net.Resources.Chat.Api;
 
 namespace Project.Server
 {
@@ -73,6 +75,14 @@ namespace Project.Server
         {
             int randomNumber = Random.Next(min, max + 1);
             return randomNumber;
+        }
+
+        public static void SendChatMessageToAll(string message)
+        {
+            foreach (IPlayer player in Alt.GetAllPlayers())
+            {
+                player.SendChatMessage(message);
+            }
         }
     }
 }
