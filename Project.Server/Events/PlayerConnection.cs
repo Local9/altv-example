@@ -33,8 +33,9 @@ namespace Project.Server.Events
         [ScriptEvent(ScriptEventType.PlayerDead)]
         public void PlayerDead(IPlayer player, IEntity killer, uint weapon)
         {
-            Console.WriteLine($"{player.Name} died");
-            player.Spawn(player.Position);
+            Position[] spawnPoints = Misc.SpawnPositions;
+            Position rndSpawnPoint = spawnPoints.ElementAt(Misc.RandomInt(0, spawnPoints.Length));
+            player.Spawn(rndSpawnPoint + new Position(Misc.RandomInt(0, 10), Misc.RandomInt(0, 10), 0));
         }
     }
 }
