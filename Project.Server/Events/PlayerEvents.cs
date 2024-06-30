@@ -41,7 +41,7 @@ namespace Project.Server.Events
             {
                 IAltPlayer killerPlayer = (IAltPlayer)killer;
 
-                Misc.SendChatMessageToAll($"{player.Name}({player.Id}) was killed by {killerPlayer.Name}({killerPlayer.Id})");
+                Misc.SendChatMessageToAll($"{player.Name}({player.Id}) was killed by {killerPlayer.Name}({killerPlayer.Id}) using a {Enum.GetName(typeof(WeaponModel), weapon)}");
 
                 await Task.Delay(5000);
 
