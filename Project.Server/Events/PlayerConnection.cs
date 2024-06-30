@@ -3,7 +3,6 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Enums;
 using Project.Server.Factories;
-using Project.Server.Services;
 
 namespace Project.Server.Events
 {
@@ -18,13 +17,7 @@ namespace Project.Server.Events
             player.SetDateTime(DateTime.UtcNow);
             player.SetWeather(Misc.Weather);
 
-            if (Misc.IsResourceLoaded("c_clothesfit"))
-            {
-                await ClothesFitService.InitPlayer(player);
-            }
-
             player.RefreshFace();
-            await player.RefreshClothes();
         }
 
         [ScriptEvent(ScriptEventType.PlayerDisconnect)]
@@ -34,11 +27,6 @@ namespace Project.Server.Events
             foreach (AltVehicle vehicle in vehicles)
             {
                 vehicle.Destroy();
-            }
-
-            if (Misc.IsResourceLoaded("c_clothesfit"))
-            {
-                ClothesFitService.DestroyPlayer(player);
             }
         }
 

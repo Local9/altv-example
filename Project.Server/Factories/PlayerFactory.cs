@@ -3,7 +3,6 @@ using AltV.Net.Async;
 using AltV.Net.Async.Elements.Entities;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Enums;
-using Project.Server.Services;
 
 namespace Project.Server.Factories
 {
@@ -14,8 +13,6 @@ namespace Project.Server.Factories
         public string CloudID { get; set; }
         public long OutfitHash { get; set; }
         public uint Sex { get; }
-        public Task RefreshClothes();
-        public Task EquipOutfit(uint outfitHash);
         public void RefreshFace();
     }
 
@@ -108,44 +105,6 @@ namespace Project.Server.Factories
                 {
                     this.SetFaceFeature((byte)i, featureParams[i]);
                 }
-            }
-        }
-
-        public async Task RefreshClothes()
-        {
-            if (!Misc.IsResourceLoaded("c_clothesfit"))
-                return;
-
-            if (Sex == 2)
-                return;
-
-            await ClothesFitService.DestroyPlayer(this);
-            await ClothesFitService.InitPlayer(this);
-
-            ulong[] outfits = await ClothesFitService.GetOutfitsBySex(Sex);
-
-            int index = Misc.RandomInt(0, outfits.Length - 1);
-            ulong randomElement = outfits[index];
-
-            await ClothesFitService.Equip(this, (uint)randomElement);
-        }
-
-        public async Task EquipOutfit(uint outfitHash)
-        {
-            if (!Misc.IsResourceLoaded("c_clothesfit"))
-                return;
-
-            if (Sex == 2)
-                return;
-
-            await ClothesFitService.DestroyPlayer(this);
-            await ClothesFitService.InitPlayer(this);
-
-            ulong[] outfits = await ClothesFitService.GetOutfitsBySex(Sex);
-
-            if (outfits.Contains(outfitHash))
-            {
-                await ClothesFitService.Equip(this, outfitHash);
             }
         }
 

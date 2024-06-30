@@ -49,22 +49,8 @@ namespace Project.Server.Commands
 
             player.RefreshFace();
 
-            player.RefreshClothes();
             player.SendChatMessage(
                     $"{{00FF00}}Your model changed");
-        }
-
-        [Command("outfit")]
-        public void Outfit(IAltPlayer player, string outfitUniqueName = "")
-        {
-            if (string.IsNullOrEmpty(outfitUniqueName))
-            {
-                player.RefreshClothes();
-                return;
-            }
-            player.EquipOutfit(Alt.Hash(outfitUniqueName));
-            player.SendChatMessage(
-                    $"{{00FF00}}Your outfit updated");
         }
 
         [Command("addcomponent")]

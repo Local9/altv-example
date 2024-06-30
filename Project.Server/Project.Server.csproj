@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <Folder Include="Scripts\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
