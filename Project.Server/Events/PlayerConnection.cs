@@ -2,6 +2,7 @@
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Enums;
+using AltV.Net.Resources.Chat.Api;
 using Project.Server.Factories;
 
 namespace Project.Server.Events
@@ -31,8 +32,24 @@ namespace Project.Server.Events
         }
 
         [ScriptEvent(ScriptEventType.PlayerDead)]
-        public void PlayerDead(IPlayer player, IEntity killer, uint weapon)
+        public async void PlayerDead(IAltPlayer player, IEntity killer, uint weapon)
         {
+            if (killer is IAltPlayer)
+            {
+                IAltPlayer killerPlayer = (IAltPlayer)killer;
+
+                foreach (IPlayer? p in Alt.GetAllPlayers())
+                {
+                    p.SendChatMessage($"{("{FFFFFF}")} <b>{killerPlayer.Name}({killerPlayer.Id})</b> killed <b>{player.Name}({player.Id})</b>");
+                }
+
+                await Task.Delay(5000);
+
+                player.Spawn(player.Position + new Position(Misc.RandomInt(10, 30), Misc.RandomInt(10, 30), 0));
+
+                return;
+            }
+
             Position[] spawnPoints = Misc.SpawnPositions;
             Position rndSpawnPoint = spawnPoints.ElementAt(Misc.RandomInt(0, spawnPoints.Length));
             player.Spawn(rndSpawnPoint + new Position(Misc.RandomInt(0, 10), Misc.RandomInt(0, 10), 0));
