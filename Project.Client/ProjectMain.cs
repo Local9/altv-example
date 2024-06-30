@@ -1,4 +1,5 @@
 ﻿using AltV.Net.Client.Async;
+using Project.Client.Events;
 
 namespace Project.Client
 {
@@ -6,7 +7,11 @@ namespace Project.Client
     {
         public override void OnStart()
         {
-            Console.WriteLine("Client Resource started");
+            Console.WriteLine("ProjectMain Client Resource started");
+
+            _ = new AdminEventHandler();
+
+            Console.WriteLine("ProjectMain Registered Events");
         }
 
         public override void OnStop()

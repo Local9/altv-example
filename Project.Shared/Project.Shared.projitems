@@ -9,6 +9,7 @@
     <Import_RootNamespace>Project.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AdminEvents.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Sanity.cs" />
   </ItemGroup>
 </Project>

@@ -10,7 +10,7 @@ namespace Project.Server.Events
     internal class PlayerEvents : IScript
     {
         [AsyncScriptEvent(ScriptEventType.PlayerConnect)]
-        public async void PlayerConnectAsync(IAltPlayer player, string reason)
+        public async Task PlayerConnectAsync(IAltPlayer player, string reason)
         {
             Position rndSpawnPoint = Misc.SpawnPositions.ElementAt(Misc.RandomInt(0, Misc.SpawnPositions.Length));
             player.Spawn(rndSpawnPoint + new Position(Misc.RandomInt(0, 10), Misc.RandomInt(0, 10), 0));
@@ -32,7 +32,7 @@ namespace Project.Server.Events
         }
 
         [AsyncScriptEvent(ScriptEventType.PlayerDead)]
-        public async void PlayerDead(IAltPlayer player, IEntity killer, uint weapon)
+        public async Task PlayerDead(IAltPlayer player, IEntity killer, uint weapon)
         {
             if (killer is IVehicle)
             {
