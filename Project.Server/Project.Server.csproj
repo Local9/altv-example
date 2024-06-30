@@ -15,7 +15,11 @@
 
   <ItemGroup>
     <PackageReference Include="AltV.Net.Async" Version="16.0.16" />
-    <PackageReference Include="System.Runtime" Version="4.3.1" />
+    <PackageReference Include="AltV.Net.Resources.Chat.Api" Version="16.0.16" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Scripts\" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
