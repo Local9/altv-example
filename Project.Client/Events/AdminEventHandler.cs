@@ -1,8 +1,9 @@
-﻿using System.Numerics;
+﻿using Project.Client.Interfaces;
+using System.Numerics;
 
 namespace Project.Client.Events
 {
-    internal class AdminEventHandler : IScript
+    internal class AdminEventHandler : IAltScript, IScript
     {
         private const float MIN_ROTATION_Y = -89f, MAX_ROTATION_Y = 89f, MAX_SPEED = 32f;
 
@@ -27,8 +28,9 @@ namespace Project.Client.Events
             Control.Duck
         };
 
-        public AdminEventHandler()
+        public void OnStart()
         {
+            Console.WriteLine("Started AdminEventHandler");
             Alt.OnServer<bool>(AdminEvents.NOCLIP, ToggleNoclip);
         }
 
