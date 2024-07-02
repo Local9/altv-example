@@ -20,5 +20,11 @@ namespace Project.Client.Events
 
             Alt.LocalPlayer.Vehicle?.Destroy();
         }
+
+        public void Dispose()
+        {
+            Console.WriteLine($"Disposing Admin Event Handler");
+            Alt.OffServer(AdminEvents.NOCLIP, null);
+        }
     }
 }

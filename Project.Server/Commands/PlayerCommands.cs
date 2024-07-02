@@ -73,5 +73,19 @@ namespace Project.Server.Commands
 
             player.Emit(AdminEvents.NOCLIP, "fuck");
         }
+
+        [Command("start")]
+        public void StartAdminEvents(IAltPlayer player)
+        {
+            Console.WriteLine($"start command called by {player.Name}");
+            player.Emit(AdminEvents.START, "Hello");
+        }
+
+        [Command("stop")]
+        public void StopAdminEvents(IAltPlayer player)
+        {
+            Console.WriteLine($"stop command called by {player.Name}");
+            player.Emit(AdminEvents.STOP, "Goodbye");
+        }
     }
 }
