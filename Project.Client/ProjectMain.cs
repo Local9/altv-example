@@ -1,5 +1,4 @@
-﻿using AltV.Net;
-using AltV.Net.Client.Async;
+﻿using AltV.Net.Client.Async;
 using Project.Client.Events;
 
 namespace Project.Client
@@ -19,6 +18,7 @@ namespace Project.Client
 
         public override void OnStop()
         {
+            _adminEventHandler.Dispose();
             Console.WriteLine("Client Resource stopped");
         }
     }

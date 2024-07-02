@@ -32,26 +32,11 @@ namespace Project.Client.Events
             Alt.OnServer<bool>(AdminEvents.NOCLIP, ToggleNoclip);
         }
 
-        public bool IsWPressed => Alt.Natives.IsControlPressed(0, 32);
-        public bool IsSPressed => Alt.Natives.IsControlPressed(0, 33);
-        public bool IsAPressed => Alt.Natives.IsControlPressed(0, 34);
-        public bool IsDPressed => Alt.Natives.IsControlPressed(0, 35);
-
         public void ToggleNoclip(bool state)
         {
             if (!state)
             {
-                _noclipCamera?.Dispose();
-                _noclipCamera = null;
-
-                Alt.ClearEveryTick(_noclipTick);
-                Alt.Natives.RenderScriptCams(false, true, 500, true, false, 0);
-
-                Position pos = Alt.FocusData.FocusOverridePosition;
-                Alt.FocusData.ClearFocusOverride();
-
-                bool groundZ = Alt.Natives.GetGroundZFor3dCoord(pos.X, pos.Y, pos.Z, ref pos.Z, false, false);
-                Alt.EmitServer(AdminEvents.TELEPORT_TO_COORDS, pos.X, pos.Y, pos.Z + 1.0);
+                CleanUp();
 
                 return;
             }
@@ -66,6 +51,21 @@ namespace Project.Client.Events
             Alt.Natives.RenderScriptCams(true, true, 500, true, false, 0);
         }
 
+        private void CleanUp()
+        {
+            _noclipCamera?.Dispose();
+            _noclipCamera = null;
+
+            Alt.ClearEveryTick(_noclipTick);
+            Alt.Natives.RenderScriptCams(false, true, 500, true, false, 0);
+
+            Position pos = Alt.FocusData.FocusOverridePosition;
+            Alt.FocusData.ClearFocusOverride();
+
+            bool groundZ = Alt.Natives.GetGroundZFor3dCoord(pos.X, pos.Y, pos.Z, ref pos.Z, false, false);
+            Alt.EmitServer(AdminEvents.TELEPORT_TO_COORDS, pos.X, pos.Y, pos.Z + 1.0);
+        }
+
         private void UpdateNoClipCamera()
         {
             try
@@ -78,13 +78,9 @@ namespace Project.Client.Events
 
                 // Speed Controls
                 if (Alt.Natives.IsDisabledControlJustPressed(0, (int)Control.SelectPrevWeapon))
-                {
                     Speed = Math.Min(Speed + 0.1f, MAX_SPEED);
-                }
                 else if (Alt.Natives.IsDisabledControlJustPressed(0, (int)Control.SelectNextWeapon))
-                {
                     Speed = Math.Max(0.1f, Speed - 0.1f);
-                }
 
                 float multiplier = 1f;
 
@@ -158,7 +154,7 @@ namespace Project.Client.Events
             Console.WriteLine($"Disposing Admin Event Handler");
             Alt.OffServer(AdminEvents.NOCLIP, null);
 
-            _noclipCamera?.Dispose();
+            CleanUp();
         }
     }
 }
