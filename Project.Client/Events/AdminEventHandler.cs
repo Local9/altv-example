@@ -6,19 +6,16 @@ namespace Project.Client.Events
 {
     internal class AdminEventHandler : IScript
     {
+        public bool IsNoclipEnabled { get; private set; }
+
         public AdminEventHandler()
         {
-            Alt.OnServer<string>(AdminEvents.NOCLIP, Teleport);
+            Alt.OnServer(AdminEvents.NOCLIP, ToggleNoclip);
         }
 
-        public void Teleport(string fuck)
+        public void ToggleNoclip()
         {
-            Console.WriteLine("Teleporting to spawnpoint");
-
-            Alt.Natives.SetLocalPlayerAsGhost(true, true);
-            Alt.Natives.SetPlayerWantedLevel(Alt.LocalPlayer, 5, false);
-
-            Alt.LocalPlayer.Vehicle?.Destroy();
+            IsNoclipEnabled = !IsNoclipEnabled;
         }
 
         public void Dispose()

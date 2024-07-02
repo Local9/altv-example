@@ -2,7 +2,6 @@
 using AltV.Net.Enums;
 using AltV.Net.Resources.Chat.Api;
 using Project.Server.Factories;
-using Project.Shared;
 
 namespace Project.Server.Commands
 {
@@ -63,29 +62,6 @@ namespace Project.Server.Commands
         public void RemoveWeaponComponent(IAltPlayer player, string name)
         {
             player.RemoveWeaponComponent(player.CurrentWeapon, Alt.Hash(name));
-        }
-
-        [Command("noclip")]
-        public void NoClip(IAltPlayer player)
-        {
-            Console.WriteLine($"3^NoClip command called by {player.Name}");
-            player.SendChatMessage($"{{00FF00}} No clip command triggered");
-
-            player.Emit(AdminEvents.NOCLIP, "fuck");
-        }
-
-        [Command("start")]
-        public void StartAdminEvents(IAltPlayer player)
-        {
-            Console.WriteLine($"start command called by {player.Name}");
-            player.Emit(AdminEvents.START, "Hello");
-        }
-
-        [Command("stop")]
-        public void StopAdminEvents(IAltPlayer player)
-        {
-            Console.WriteLine($"stop command called by {player.Name}");
-            player.Emit(AdminEvents.STOP, "Goodbye");
         }
     }
 }
