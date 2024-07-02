@@ -1,13 +1,14 @@
-﻿using AltV.Net.Client;
+﻿using AltV.Net;
+using AltV.Net.Client;
 using Project.Shared;
 
 namespace Project.Client.Events
 {
-    internal class AdminEventHandler
+    internal class AdminEventHandler : IScript
     {
         public AdminEventHandler()
         {
-            Alt.OnClient<string>(AdminEvents.NOCLIP, Teleport);
+            Alt.OnServer<string>(AdminEvents.NOCLIP, Teleport);
         }
 
         public void Teleport(string fuck)
