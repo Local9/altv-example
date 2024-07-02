@@ -13,6 +13,7 @@ namespace Project.Server.Factories
         public string CloudID { get; set; }
         public long OutfitHash { get; set; }
         public uint Sex { get; }
+        public bool NoClip { get; set; }
         public void RefreshFace();
     }
 
@@ -22,6 +23,7 @@ namespace Project.Server.Factories
         public DateTime LastVehicleSpawn { get; set; }
         public string CloudID { get; set; }
         public long OutfitHash { get; set; }
+        public bool NoClip { get; set; }
         public uint Sex => this.Model switch
         {
             (uint)PedModel.FreemodeMale01 => 0,

@@ -7,7 +7,7 @@ using Project.Server.Factories;
 
 namespace Project.Server.Events
 {
-    internal class PlayerEvents : IScript
+    internal class PlayerEventHandler : IScript
     {
         [AsyncScriptEvent(ScriptEventType.PlayerConnect)]
         public async Task PlayerConnectAsync(IAltPlayer player, string reason)

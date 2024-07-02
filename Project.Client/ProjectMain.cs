@@ -1,8 +1,6 @@
 ﻿using AltV.Net;
-using AltV.Net.Client;
 using AltV.Net.Client.Async;
 using Project.Client.Events;
-using Project.Shared;
 
 namespace Project.Client
 {
@@ -14,22 +12,9 @@ namespace Project.Client
         {
             Console.WriteLine("ProjectMain Client Resource started");
 
-            Alt.OnServer<string>(AdminEvents.START, OnStartAdmin);
-            Alt.OnServer<string>(AdminEvents.STOP, OnStopAdmin);
+            _adminEventHandler = new AdminEventHandler();
 
             Console.WriteLine("ProjectMain Registered Events");
-        }
-
-        private void OnStopAdmin(string obj)
-        {
-            // Stop the admin event handler
-            _adminEventHandler?.Dispose();
-            _adminEventHandler = null;
-        }
-
-        private void OnStartAdmin(string obj)
-        {
-            _adminEventHandler ??= new AdminEventHandler();
         }
 
         public override void OnStop()
