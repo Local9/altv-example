@@ -24,11 +24,12 @@ namespace Project.Client
         {
             // Stop the admin event handler
             _adminEventHandler?.Dispose();
+            _adminEventHandler = null;
         }
 
         private void OnStartAdmin(string obj)
         {
-            _adminEventHandler = new AdminEventHandler();
+            _adminEventHandler ??= new AdminEventHandler();
         }
 
         public override void OnStop()
