@@ -5,17 +5,17 @@ using AltV.Net.Elements.Entities;
 using AltV.Net.Enums;
 using Project.Server.Factories;
 
-namespace Project.Server.Events
+namespace Project.Server.Controllers
 {
-    internal class PlayerEventHandler : IController
+    internal class PlayerController : IController
     {
         private readonly ILogger _logger;
 
-        public PlayerEventHandler()
+        public PlayerController()
         {
         }
 
-        public PlayerEventHandler(ILogger logger)
+        public PlayerController(ILogger logger)
         {
             _logger = logger;
         }

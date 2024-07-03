@@ -1,19 +1,18 @@
-﻿using AltV.Net;
-using AltV.Net.Data;
+﻿using AltV.Net.Data;
 using Project.Server.Factories;
 
-namespace Project.Server.Events
+namespace Project.Server.Controllers
 {
-    internal class AdminEventHandler : IController
+    internal class AdminController : IController
     {
         private readonly ILogger _logger;
         private readonly IRpcService _rpcService;
 
-        public AdminEventHandler()
+        public AdminController()
         {
         }
 
-        public AdminEventHandler(ILogger logger, IRpcService rpcService)
+        public AdminController(ILogger logger, IRpcService rpcService)
         {
             _logger = logger;
             _rpcService = rpcService;
