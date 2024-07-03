@@ -1,9 +1,9 @@
 ﻿using Project.Client.Interfaces;
 using System.Numerics;
 
-namespace Project.Client.Events
+namespace Project.Client.Events.Admin
 {
-    internal class AdminEventHandler : IAltScript, IScript
+    internal class NoClipHandler : IAltScript, IScript
     {
         private const float MIN_ROTATION_Y = -89f, MAX_ROTATION_Y = 89f, MAX_SPEED = 32f;
 
@@ -30,7 +30,7 @@ namespace Project.Client.Events
 
         public void OnStart()
         {
-            Console.WriteLine("Started AdminEventHandler");
+            Console.WriteLine("Started No Clip Handler");
             Alt.OnServer<bool>(AdminEvents.NOCLIP, ToggleNoclip);
         }
 
@@ -153,7 +153,7 @@ namespace Project.Client.Events
 
         public void Dispose()
         {
-            Console.WriteLine($"Disposing Admin Event Handler");
+            Console.WriteLine($"Disposing No Clip Handler");
             Alt.OffServer(AdminEvents.NOCLIP, null);
 
             CleanUp();
