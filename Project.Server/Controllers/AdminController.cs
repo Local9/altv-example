@@ -16,13 +16,11 @@ namespace Project.Server.Controllers
         {
             _logger = logger;
             _rpcService = rpcService;
-
-            _logger.Log("AdminEventHandler constructor");
         }
 
         public void OnStart()
         {
-
+            _logger.Log("Admin Controller Started");
         }
 
         public void OnStop()

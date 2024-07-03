@@ -2,39 +2,23 @@
 using AltV.Net.Elements.Entities;
 using Microsoft.Extensions.DependencyInjection;
 using Project.Server.Factories;
-using Project.Shared.Services;
-using System.Reflection;
 
 namespace Project.Server
 {
     internal class ProjectMain : AsyncResource
     {
-        private ServiceCollection _serviceCollection = new();
+        public static IServiceProvider ServiceCollection;
 
         public override void OnStart()
         {
             Console.WriteLine("Server Resource started");
 
-            // Thank you SmOkEwOw for helping me even understanding this process
-            // even if he didn't know that he was helping me
+            ServiceCollection = new Startup().ConfigureServices();
 
-            _serviceCollection.AddSingleton<ILogger, ConsoleLogger>();
-            _serviceCollection.AddSingleton<IRpcService, RpcService>();
+            IRpcService rpcService = ServiceCollection.GetService<IRpcService>();
+            rpcService.OnStart();
 
-            foreach (Type type in Assembly.GetExecutingAssembly().GetTypes())
-            {
-                if (type.IsClass && typeof(IController).IsAssignableFrom(type))
-                {
-                    _serviceCollection.AddSingleton(typeof(IController), type);
-                }
-            }
-
-            IServiceProvider serviceProvider = _serviceCollection.BuildServiceProvider();
-
-            IRpcService? rpcService = serviceProvider.GetService<IRpcService>();
-            rpcService?.OnStart();
-
-            foreach (IController controller in serviceProvider.GetServices<IController>())
+            foreach (IController controller in ServiceCollection.GetServices<IController>())
             {
                 controller.OnStart();
             }

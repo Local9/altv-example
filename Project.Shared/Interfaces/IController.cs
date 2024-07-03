@@ -1,6 +1,4 @@
-﻿using AltV.Net;
-
-namespace Project.Shared.Interfaces
+﻿namespace Project.Shared.Interfaces
 {
     internal interface IController : IScript
     {

@@ -1,5 +1,4 @@
-﻿using AltV.Net;
-using AltV.Net.Async;
+﻿using AltV.Net.Async;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Enums;
@@ -22,7 +21,7 @@ namespace Project.Server.Controllers
 
         public void OnStart()
         {
-
+            _logger.Log("Player Controller Started");
         }
 
         public void OnStop()
