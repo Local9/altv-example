@@ -5,7 +5,7 @@ VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project.Client", "Project.Client\Project.Client.csproj", "{1BCBB5FA-9BBA-4340-B3BC-9FE233DC3261}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project.Server", "Project.Server\Project.Server.csproj", "{A7C68EC2-0AC5-4FA7-8C1B-23AD81FCADF0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project.Server", "Project.Server\Project.Server.csproj", "{A7C68EC2-0AC5-4FA7-8C1B-23AD81FCADF0}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Project.Shared", "Project.Shared\Project.Shared.shproj", "{A0CCF1C6-4E7E-47DC-BD1B-1EA5D484DAA8}"
 EndProject

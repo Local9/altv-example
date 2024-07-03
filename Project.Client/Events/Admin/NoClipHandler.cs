@@ -1,9 +1,8 @@
-﻿using Project.Client.Interfaces;
-using System.Numerics;
+﻿using System.Numerics;
 
 namespace Project.Client.Events.Admin
 {
-    internal class NoClipHandler : IAltScript, IScript
+    internal class NoClipHandler : IController
     {
         private const float MIN_ROTATION_Y = -89f, MAX_ROTATION_Y = 89f, MAX_SPEED = 32f;
 
@@ -157,6 +156,11 @@ namespace Project.Client.Events.Admin
             Alt.OffServer(AdminEvents.NOCLIP, null);
 
             CleanUp();
+        }
+
+        public void OnStop()
+        {
+            Dispose();
         }
     }
 }

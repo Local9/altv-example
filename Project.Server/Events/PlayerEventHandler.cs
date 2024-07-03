@@ -7,8 +7,29 @@ using Project.Server.Factories;
 
 namespace Project.Server.Events
 {
-    internal class PlayerEventHandler : IScript
+    internal class PlayerEventHandler : IController
     {
+        private readonly ILogger _logger;
+
+        public PlayerEventHandler()
+        {
+        }
+
+        public PlayerEventHandler(ILogger logger)
+        {
+            _logger = logger;
+        }
+
+        public void OnStart()
+        {
+
+        }
+
+        public void OnStop()
+        {
+
+        }
+
         [AsyncScriptEvent(ScriptEventType.PlayerConnect)]
         public async Task PlayerConnectAsync(IAltPlayer player, string reason)
         {

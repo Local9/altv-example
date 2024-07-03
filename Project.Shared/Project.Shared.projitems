@@ -9,9 +9,15 @@
     <Import_RootNamespace>Project.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ConsoleLogger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\RpcError.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\ShapTestFlags.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\AdminEvents.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Control.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DirectionVector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IController.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)interfaces\ILogger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RpcResult.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Sanity.cs" />
   </ItemGroup>
   <ItemGroup>

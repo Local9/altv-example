@@ -1,4 +1,6 @@
 ﻿using AltV.Net.Client.Async;
+using Microsoft.Extensions.DependencyInjection;
+using Project.Client.Controllers;
 using Project.Client.Interfaces;
 using System.Reflection;
 
@@ -6,18 +8,31 @@ namespace Project.Client
 {
     internal class ProjectMain : AsyncResource
     {
+        private ServiceCollection _serviceCollection = new();
+
         public override void OnStart()
         {
             Console.WriteLine("ProjectMain Client Resource started");
 
+            _serviceCollection.AddSingleton<ILogger, ConsoleLogger>();
+            _serviceCollection.AddSingleton<IRpcService, RpcController>();
+
             foreach (Type type in Assembly.GetExecutingAssembly().GetTypes())
             {
-                // if the type is a class and implements IScript
-                if (type.IsClass && typeof(IAltScript).IsAssignableFrom(type))
+                if (type.IsClass && typeof(IController).IsAssignableFrom(type))
                 {
-                    // then create an instance of the type and call OnStart without using the IScript interface
-                    type?.GetMethod("OnStart")?.Invoke(Activator.CreateInstance(type), null);
+                    _serviceCollection.AddSingleton(typeof(IController), type);
                 }
+            }
+
+            IServiceProvider serviceProvider = _serviceCollection.BuildServiceProvider();
+
+            IRpcService? rpcService = serviceProvider.GetService<IRpcService>();
+            rpcService?.OnStart();
+
+            foreach (IController controller in serviceProvider.GetServices<IController>())
+            {
+                controller.OnStart();
             }
 
             Console.WriteLine("ProjectMain Client Resource Loading Completed");
