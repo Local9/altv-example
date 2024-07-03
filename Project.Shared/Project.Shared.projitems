@@ -17,8 +17,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)DirectionVector.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IController.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)interfaces\ILogger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IRpcService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RpcResult.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Sanity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\RpcService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Events\" />

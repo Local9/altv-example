@@ -1,8 +1,8 @@
 ﻿using System.Numerics;
 
-namespace Project.Client.Events.Admin
+namespace Project.Client.Controllers.Admin
 {
-    internal class NoClipHandler : IController
+    internal class NoClipController : IController
     {
         private const float MIN_ROTATION_Y = -89f, MAX_ROTATION_Y = 89f, MAX_SPEED = 32f;
 

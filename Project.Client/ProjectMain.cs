@@ -1,7 +1,6 @@
 ﻿using AltV.Net.Client.Async;
 using Microsoft.Extensions.DependencyInjection;
-using Project.Client.Controllers;
-using Project.Client.Interfaces;
+using Project.Shared.Services;
 using System.Reflection;
 
 namespace Project.Client
@@ -15,7 +14,7 @@ namespace Project.Client
             Console.WriteLine("ProjectMain Client Resource started");
 
             _serviceCollection.AddSingleton<ILogger, ConsoleLogger>();
-            _serviceCollection.AddSingleton<IRpcService, RpcController>();
+            _serviceCollection.AddSingleton<IRpcService, RpcService>();
 
             foreach (Type type in Assembly.GetExecutingAssembly().GetTypes())
             {

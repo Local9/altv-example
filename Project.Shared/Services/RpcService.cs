@@ -1,16 +1,18 @@
-﻿using AltV.Net;
+﻿#if SERVER
 using AltV.Net.Elements.Entities;
-using Project.Server.Interfaces;
+#elif CLIENT
+using AltV.Net.Client.Elements.Interfaces;
+#endif
 using System.Collections.Concurrent;
 
-namespace Project.Server.Controllers
+namespace Project.Shared.Services
 {
-    internal class RpcController : IRpcService
+    internal class RpcService : IRpcService
     {
         private readonly ConcurrentDictionary<string, TaskCompletionSource<object>> _taskCompletionSources = new();
         private readonly ILogger _logger;
 
-        public RpcController(ILogger logger)
+        public RpcService(ILogger logger)
         {
             _logger = logger;
         }
@@ -28,7 +30,11 @@ namespace Project.Server.Controllers
 
         public async Task<RpcResult<T>> SendRpc<T>(IPlayer player, double timeout, string eventName, params object[] args)
         {
+#if SERVER
             ushort rpcId = player.EmitRPC(eventName, args);
+#elif CLIENT
+            ushort rpcId = Alt.EmitRPC(eventName, args);
+#endif
             _logger.Log($"player.EmitRPC {rpcId}");
             TaskCompletionSource<object> tcs = new TaskCompletionSource<object>();
             _taskCompletionSources.TryAdd($"{player.Id}_{rpcId}", tcs);
@@ -48,6 +54,7 @@ namespace Project.Server.Controllers
             }
         }
 
+#if SERVER
         public void OnScriptRpcAnswer(IPlayer target, ushort answerId, object answer, string answerError)
         {
             _logger.Log($"OnScriptRpcAnswer {answerId} @ {answer}");
@@ -55,5 +62,14 @@ namespace Project.Server.Controllers
             if (!_taskCompletionSources.TryRemove($"{target.Id}_{answerId}", out TaskCompletionSource<object>? tcs)) return;
             tcs.TrySetResult(answer);
         }
+#elif CLIENT
+        public void OnScriptRpcAnswer(ushort answerId, object answer, string answerError)
+        {
+            _logger.Log($"OnScriptRpcAnswer {answerId} @ {answer}");
+
+            if (!_taskCompletionSources.TryRemove($"{Alt.LocalPlayer.Id}_{answerId}", out TaskCompletionSource<object>? tcs)) return;
+            tcs.TrySetResult(answer);
+        }
+#endif
     }
 }

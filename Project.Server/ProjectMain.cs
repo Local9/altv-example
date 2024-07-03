@@ -1,10 +1,8 @@
-﻿using AltV.Net;
-using AltV.Net.Async;
+﻿using AltV.Net.Async;
 using AltV.Net.Elements.Entities;
 using Microsoft.Extensions.DependencyInjection;
-using Project.Server.Controllers;
 using Project.Server.Factories;
-using Project.Server.Interfaces;
+using Project.Shared.Services;
 using System.Reflection;
 
 namespace Project.Server
@@ -21,7 +19,7 @@ namespace Project.Server
             // even if he didn't know that he was helping me
 
             _serviceCollection.AddSingleton<ILogger, ConsoleLogger>();
-            _serviceCollection.AddSingleton<IRpcService, RpcController>();
+            _serviceCollection.AddSingleton<IRpcService, RpcService>();
 
             foreach (Type type in Assembly.GetExecutingAssembly().GetTypes())
             {

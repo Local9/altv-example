@@ -1,7 +1,6 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
 using Project.Server.Factories;
-using Project.Server.Interfaces;
 
 namespace Project.Server.Events
 {
