@@ -7,7 +7,7 @@ namespace Project.Client.Events.Admin
     {
         private const float MIN_ROTATION_Y = -89f, MAX_ROTATION_Y = 89f, MAX_SPEED = 32f;
 
-        private Camera _noclipCamera;
+        private Camera? _noclipCamera;
         private uint _noclipTick;
         public float Speed { get; set; } = 1f;
         public float Fov { get; set; } = 75f;
