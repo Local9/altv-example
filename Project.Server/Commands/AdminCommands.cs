@@ -1,14 +1,12 @@
-﻿using AltV.Net.Resources.Chat.Api;
-using Microsoft.Extensions.DependencyInjection;
-using Project.Server.Factories;
+﻿using Project.Server.Factories;
 using System.Numerics;
 
 namespace Project.Server.Commands
 {
     internal class AdminCommands : IController
     {
-        private readonly ILogger _logger;
-        private readonly IRpcService _rpcService;
+        private ILogger _logger;
+        private IRpcService _rpcService;
 
         public AdminCommands()
         {
@@ -25,6 +23,8 @@ namespace Project.Server.Commands
         public void OnStart()
         {
             _logger.Log("Admin Commands Started");
+            CommandHandlers.Add("noclip", NoClip);
+            CommandHandlers.Add("tpw", TeleportWaypoint);
         }
 
         public void OnStop()
@@ -32,8 +32,7 @@ namespace Project.Server.Commands
 
         }
 
-        [Command("noclip")]
-        public void NoClip(IAltPlayer player)
+        public void NoClip(IAltPlayer player, string cmd, string[] args)
         {
             // todo: check if player is admin
 
@@ -50,23 +49,10 @@ namespace Project.Server.Commands
             player.Emit(AdminEvents.NOCLIP, player.NoClip);
         }
 
-        [Command("tpw")]
-        public async void TeleportWaypoint(IAltPlayer player)
+        public async void TeleportWaypoint(IAltPlayer player, string cmd, string[] args)
         {
-            // SHOULDN'T NEED TO DO THIS BUT SOMETHING IS FUCKING WRONG
-            ILogger _logger = ProjectMain.ServiceCollection.GetService<ILogger>();
-            IRpcService _rpcService = ProjectMain.ServiceCollection.GetService<IRpcService>();
-
             try
             {
-                // don't know why this is null, but it is null, and its fucking annoying
-                // if you know how to fix this, I'm all ears...
-                if (_rpcService == null)
-                {
-                    player.SendChatMessage($"{{FF0000}}Error: RpcService is null.");
-                    return;
-                }
-
                 _logger.Log($"Attempting to use RPC");
 
                 RpcResult<Vector3> rpcResult = await _rpcService.SendRpc<Vector3>(player, 5, AdminEvents.GET_WAYPOINT_POSITION);

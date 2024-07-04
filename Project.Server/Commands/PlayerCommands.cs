@@ -1,14 +1,16 @@
-﻿using AltV.Net;
-using AltV.Net.Enums;
-using AltV.Net.Resources.Chat.Api;
+﻿using AltV.Net.Enums;
 using Project.Server.Factories;
 
 namespace Project.Server.Commands
 {
     internal class PlayerCommands : IScript
     {
-        [Command("weapons")]
-        public void GetWeapons(IAltPlayer player)
+        public void OnStart()
+        {
+            CommandHandlers.Add("weapons", GetWeapons);
+        }
+
+        public void GetWeapons(IAltPlayer player, string cmd, string[] args)
         {
             foreach (WeaponModel weapon in Enum.GetValues(typeof(WeaponModel)).Cast<WeaponModel>())
             {
@@ -16,7 +18,6 @@ namespace Project.Server.Commands
             }
         }
 
-        [Command("weapon")]
         public void GiveWeapon(IAltPlayer player, string weaponName, int ammo = 1000)
         {
             // weapon addon fails this check...
@@ -35,7 +36,6 @@ namespace Project.Server.Commands
             player.GiveWeapon(Alt.Hash(weaponName), ammo, false);
         }
 
-        [Command("model")]
         public void ChangeModel(IAltPlayer player)
         {
             if (player.Model == Alt.Hash("mp_m_freemode_01"))
@@ -52,13 +52,11 @@ namespace Project.Server.Commands
             player.SendChatMessage($"{{00FF00}}Your model changed");
         }
 
-        [Command("addcomponent")]
         public void WeaponComponent(IAltPlayer player, string name)
         {
             player.AddWeaponComponent(player.CurrentWeapon, Alt.Hash(name));
         }
 
-        [Command("removecomponent")]
         public void RemoveWeaponComponent(IAltPlayer player, string name)
         {
             player.RemoveWeaponComponent(player.CurrentWeapon, Alt.Hash(name));

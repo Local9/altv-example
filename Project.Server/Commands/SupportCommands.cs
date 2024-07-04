@@ -1,15 +1,24 @@
-﻿using AltV.Net;
-using AltV.Net.Data;
-using AltV.Net.Resources.Chat.Api;
+﻿using AltV.Net.Data;
 using Project.Server.Factories;
 
 namespace Project.Server.Commands
 {
-    internal class SupportCommands : IScript
+    internal class SupportCommands : IController
     {
-        [Command("tp")]
-        public void Teleport(IAltPlayer player, int id = 0)
+        public void OnStart()
         {
+            CommandHandlers.Add("teleport", Teleport);
+        }
+
+        public void OnStop()
+        {
+
+        }
+
+        public void Teleport(IAltPlayer player, string cmd, string[] args)
+        {
+            uint id = args.Length > 0 ? uint.Parse(args[0]) : 0;
+
             if (id > Misc.SpawnPositions.Length || id <= 0)
             {
                 player.SendChatMessage(

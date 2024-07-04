@@ -1,14 +1,24 @@
-﻿using AltV.Net;
-using AltV.Net.Data;
-using AltV.Net.Resources.Chat.Api;
+﻿using AltV.Net.Data;
 using Project.Server.Factories;
 
 namespace Project.Server.Commands
 {
-    internal class VehicleCommands : IScript
+    internal class VehicleCommands : IController
     {
-        [Command("veh")]
-        public void SpawnVeh(IAltPlayer player, string vehicleName)
+        public void OnStart()
+        {
+            CommandHandlers.Add("veh", SpawnVeh);
+            CommandHandlers.Add("vehdel", DeleteVeh);
+            CommandHandlers.Add("vehnuke", NukeVehicles);
+            CommandHandlers.Add("tune", Tune);
+        }
+
+        public void OnStop()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SpawnVeh(IAltPlayer player, string cmd, string[] args)
         {
             // fails for addon vehicles
 
@@ -17,6 +27,8 @@ namespace Project.Server.Commands
             //    player.SendChatMessage("{FF0000} Invalid vehicle model!");
             //    return;
             //}
+
+            string vehicleName = args[0];
 
             if (player.InteriorLocation != 0)
             {
@@ -56,8 +68,7 @@ namespace Project.Server.Commands
             spawnedVeh.Owner = player;
         }
 
-        [Command("vehdel")]
-        public void DeleteVeh(IAltPlayer player)
+        public void DeleteVeh(IAltPlayer player, string cmd, string[] args)
         {
             if (!player.IsInVehicle)
             {
@@ -70,8 +81,7 @@ namespace Project.Server.Commands
             veh.Destroy();
         }
 
-        [Command("vehnuke")]
-        public async void NukeVehicles(IAltPlayer player)
+        public async void NukeVehicles(IAltPlayer player, string cmd, string[] args)
         {
             // get all players and convert them to IAltPlayer
             IEnumerable<IAltPlayer> players = Alt.GetAllPlayers().Select(p => (IAltPlayer)p);
@@ -97,9 +107,11 @@ namespace Project.Server.Commands
             }
         }
 
-        [Command("tune")]
-        public void Tune(IAltPlayer player, int index, int value)
+        public void Tune(IAltPlayer player, string cmd, string[] args)
         {
+            int index = int.Parse(args[0]);
+            int value = int.Parse(args[1]);
+
             if (!player.IsInVehicle)
             {
                 player.SendChatMessage("{FF0000} You're not in a vehicle!");
